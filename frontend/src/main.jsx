@@ -7,6 +7,7 @@ import LoginProvider from '../context/LoginContext.jsx'
 import SignupProvider from '../context/SignupContext.jsx'
 import ListContextProvider from '../context/ListContext.jsx'
 import NewListProvider from '../context/NewListContext.jsx'
+import NewTaskProvider from '../context/NewTaskContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <LoginProvider>
           <ListContextProvider>
             <NewListProvider>
-              <App />
+              <NewTaskProvider>
+                <App />
+              </NewTaskProvider>
             </NewListProvider>
           </ListContextProvider>
         </LoginProvider>

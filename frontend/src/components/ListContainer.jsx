@@ -4,12 +4,14 @@ import { useDrop } from 'react-dnd'
 import { Server } from '../../utils/Server'
 import { UserState } from '../../context/UserContext'
 import { UseList } from '../../context/ListContext'
+import { UseNewTask } from '../../context/NewTaskContext'
 
 
 
 
 const ListContainer = ({ id: listid, title, Tasks, listData, setListData }) => {
   const { user } = UserState()
+  const {onOpen} = UseNewTask()
  
   const { fetchAgain, refetch } = UseList()
 
@@ -73,15 +75,20 @@ const ListContainer = ({ id: listid, title, Tasks, listData, setListData }) => {
         }
       }
       await Server.delete(`/task/${task.id}`,config)
-      refetch()
     } catch(e) {
       console.log(e.message)
     }
   }
 
+
+ 
+
   return (
     <div ref={drop} className={`w-[350px] min-w-[350px] min-h-[300px] max-h-[300px] overflow-y-auto border px-4 pt-2 pb-4 rounded-md ${isOver ? "bg-neutral-100" : ""}`}>
-      <p className='text-center font-semibold text-lg pb-2'>{title}</p>
+      <div className="flex items-center justify-between border-b my-2 pb-1">
+        <p className='text-center font-semibold text-lg pb-2'>{title}</p>
+        <button className="bg-zinc-900 cursor-pointer px-2 uppercase py-0.5 rounded-md text-white" onClick={() => onOpen(listid)}>add task</button>
+      </div>
       <div className='space-y-3'>
         {Tasks?.map(task => <Task handleDelete={deleteTaskById} key={task.id} task={task} />)}
       </div>

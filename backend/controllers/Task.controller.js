@@ -16,7 +16,6 @@ export const createTask = async(req,res) => {
 export const updateTask = async(req,res) => {
     const {taskId} = req.params
     const updatedTask = req.body
-    console.log(taskId)
 
     try {
         const task = await Task.findByPk(taskId)
@@ -25,7 +24,7 @@ export const updateTask = async(req,res) => {
         }
 
         task.update(updatedTask)
-        console.log('task updated successfully')
+        res.status(200).json({success:true,message:"task updated successfully"})
 
     } catch(e){
         console.log(e)
